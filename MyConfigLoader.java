@@ -4,8 +4,6 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.common.base.Charsets;
-
 public class MyConfigLoader {
 	
 	private File file;
@@ -57,7 +55,7 @@ public class MyConfigLoader {
 					if(isQuoted){
 						continue; // Character is within quotes; Do Nothing
 					}
-					if((c == ' ' || c == '=' || c == ':' || c == '{') && keyName == null){
+					if(c == ' ' || c == '=' || c == ':' || c == '{'){
 						keyName = line.substring(0, charIndex).replace("\"", ""); //Remove quotes from name if any
 						node.setKey(keyName);
 						break;
@@ -99,7 +97,7 @@ public class MyConfigLoader {
 	private void writeFile(List<String> toWrite) {
 		try {
 			Files.newBufferedWriter(file.toPath() , StandardOpenOption.TRUNCATE_EXISTING); // Clear old contents
-			Files.write(file.toPath(), toWrite, Charsets.ISO_8859_1); // Write new contents
+			Files.write(file.toPath(), toWrite); // Write new contents
 		} catch (Exception e) {}
 	}
 	
