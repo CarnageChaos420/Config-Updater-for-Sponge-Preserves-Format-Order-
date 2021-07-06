@@ -9,7 +9,7 @@ import com.carnagechaos420.pixelmonaddonsc.Reference;
 
 public class ConfigUpdater {
 	
-	private Main plugin;
+	private Main plugin; //Sponge Plugin Instance
 	
 	public ConfigUpdater(Main plugin){
 		this.plugin = plugin;
@@ -26,7 +26,7 @@ public class ConfigUpdater {
         	newConfig.renameTo(oldConfig); // Config already exists; Change name to old.
         }
 		try {
-			// Load in the latest default Config.
+			// Load in the latest default Config. Edit to taste if you want to load in config file a different way.
 			Sponge.getAssetManager().getAsset(plugin, "default.conf").get().copyToFile(newConfig.toPath(), false, true);
 		} catch (IOException e) {
 			e.printStackTrace();
