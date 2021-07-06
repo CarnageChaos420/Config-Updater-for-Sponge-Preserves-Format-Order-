@@ -19,20 +19,20 @@ public class ConfigUpdater {
 		String modID = Reference.MOD_ID; // Change however you want to get your mod id here
 		String path = configPath.getParent().toString();
 		oldConfig = new File(path+File.separator+modID+".old.conf");
-        newConfig = new File(path+File.separator+modID+".conf");
-        if(newConfig.exists()){
-        	newConfig.renameTo(oldConfig); // Config already exists; Change name to old.
-        }
+        	newConfig = new File(path+File.separator+modID+".conf");
+		if(newConfig.exists()){
+			newConfig.renameTo(oldConfig); // Config already exists; Change name to old.
+		}
 		try {
 			// Load in the latest default Config. Edit to taste if you want to load in config file a different way.
 			Sponge.getAssetManager().getAsset(plugin, "default.conf").get().copyToFile(newConfig.toPath(), false, true);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-        if(oldConfig.exists()){
-        	// If there was a pre-existing Config file, copy over the old settings from it.
+		if(oldConfig.exists()){
+			// If there was a pre-existing Config file, copy over the old settings from it.
 			updateConfig();
-        }
+		}
 		
 	}
 	
