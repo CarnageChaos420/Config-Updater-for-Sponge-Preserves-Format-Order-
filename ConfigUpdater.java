@@ -4,9 +4,6 @@ import java.nio.file.Path;
 
 import org.spongepowered.api.Sponge;
 
-import com.carnagechaos420.pixelmonaddonsc.Main;
-import com.carnagechaos420.pixelmonaddonsc.Reference;
-
 public class ConfigUpdater {
 	
 	private Main plugin; //Sponge Plugin Instance
@@ -19,9 +16,10 @@ public class ConfigUpdater {
 	private File oldConfig;
 
 	public void checkUpdate(Path configPath) {
+		String modID = Reference.MOD_ID; // Change however you want to get your mod id here
 		String path = configPath.getParent().toString();
-		oldConfig = new File(path+File.separator+Reference.MOD_ID+".old.conf");
-        newConfig = new File(path+File.separator+Reference.MOD_ID+".conf");
+		oldConfig = new File(path+File.separator+modID+".old.conf");
+        newConfig = new File(path+File.separator+modID+".conf");
         if(newConfig.exists()){
         	newConfig.renameTo(oldConfig); // Config already exists; Change name to old.
         }
@@ -43,9 +41,10 @@ public class ConfigUpdater {
 		MyConfigLoader newConfigLoader = new MyConfigLoader(newConfig);
 		MyConfigNode oldConfigNode = oldConfigLoader.load();
 		MyConfigNode newConfigNode = newConfigLoader.load();
+		
 		newConfigNode.merge(oldConfigNode);
 		newConfigLoader.save(newConfigNode);
-		oldConfig.delete(); // Now that we've copied over old config values we no longer need file.
+		oldConfig.delete(); // Now that we've copied over old config values we no longer need the old file.
 	}
 
 }
